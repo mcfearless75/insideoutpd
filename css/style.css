@@ -199,6 +199,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
+  z-index: 0;
+  overflow: hidden;
   color: #fff;
   background: linear-gradient(180deg, rgba(19,18,16,.68), rgba(19,18,16,.82)), var(--ink) center/cover;
 }
