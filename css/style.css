@@ -202,7 +202,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   z-index: 0;
   overflow: hidden;
   color: #fff;
-  background: linear-gradient(180deg, rgba(19,18,16,.68), rgba(19,18,16,.82)), var(--ink) center/cover;
+  background: var(--ink);
 }
 .hero-media {
   position: absolute;
@@ -213,6 +213,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(15,14,12,.92) 0%, rgba(15,14,12,.78) 32%, rgba(15,14,12,.5) 65%, rgba(15,14,12,.68) 100%);
 }
 .hero .wrap {
   padding-top: 96px;
