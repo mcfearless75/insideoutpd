@@ -101,6 +101,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: rgba(250, 247, 242, 0.92);
   backdrop-filter: saturate(160%) blur(10px);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 0 0 rgba(27, 26, 23, 0);
+  transition: box-shadow .25s ease, border-color .25s ease;
+}
+.site-header.is-scrolled {
+  border-bottom-color: transparent;
+  box-shadow: 0 8px 24px -18px rgba(27, 26, 23, 0.45);
 }
 .site-header .wrap {
   display: flex;
@@ -312,6 +318,15 @@ section { padding: 72px 0; }
   border-radius: var(--radius);
   padding: 28px;
   box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.service-card {
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(176, 82, 42, 0.35);
+  box-shadow: 0 20px 36px -22px rgba(27, 26, 23, 0.4);
 }
 .service-card .icon {
   width: 52px;
@@ -322,12 +337,28 @@ section { padding: 72px 0; }
   display: grid;
   place-items: center;
   margin-bottom: 18px;
-  font-size: 1.4rem;
+  transition: background-color .25s ease, color .25s ease, transform .25s ease;
+}
+.service-card .icon svg { width: 26px; height: 26px; }
+.service-card:hover .icon {
+  background: var(--brand);
+  color: #fff;
+  transform: scale(1.08);
 }
 .service-card h3 { font-size: 1.12rem; }
 .service-card p { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 14px; }
-.service-card a { font-weight: 700; color: var(--brand); text-decoration: none; font-size: 0.9rem; }
+.service-card a {
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.service-card a .arrow { display: inline-block; transition: transform .2s ease; }
 .service-card a:hover { text-decoration: underline; }
+.service-card a:hover .arrow { transform: translateX(3px); }
 
 .stat-row {
   display: flex;
@@ -341,7 +372,9 @@ section { padding: 72px 0; }
   border-radius: var(--radius);
   padding: 22px;
   text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
+.stat:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -22px rgba(27, 26, 23, 0.4); }
 .stat strong { display: block; font-size: 1.9rem; color: var(--brand); }
 .stat span { font-size: 0.82rem; color: var(--ink-soft); }
 
@@ -450,11 +483,31 @@ section { padding: 72px 0; }
   gap: 22px;
 }
 .testimonial-card {
+  position: relative;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 26px;
+  padding: 30px 26px 26px;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 36px -24px rgba(27, 26, 23, 0.4);
+}
+.testimonial-card::before {
+  content: "\201C";
+  position: absolute;
+  top: 6px;
+  right: 18px;
+  font-size: 3.2rem;
+  line-height: 1;
+  font-family: Georgia, serif;
+  color: var(--paper-alt);
+  z-index: 0;
+}
+.testimonial-card .stars,
+.testimonial-card p,
+.testimonial-card footer { position: relative; z-index: 1; }
 .testimonial-card .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 12px; font-size: .95rem; }
 .testimonial-card p { font-style: italic; color: var(--ink-soft); }
 .testimonial-card footer { font-weight: 700; font-size: 0.9rem; margin-top: 12px; }
@@ -572,7 +625,9 @@ section { padding: 72px 0; }
   width: 38px; height: 38px; border-radius: 9px;
   background: rgba(255,255,255,0.14);
   display: grid; place-items: center; flex: none;
+  color: var(--gold);
 }
+.contact-info-list .ico svg { width: 18px; height: 18px; }
 .social-row { display: flex; gap: 10px; margin-top: 22px; }
 .social-row a {
   width: 38px; height: 38px; border-radius: 50%;
@@ -678,6 +733,30 @@ form.contact-form {
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* ---------- Scroll reveal ---------- */
+/* JS adds [data-reveal] targets + .is-visible on intersect. CSS-only fallback: */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .5s ease, transform .5s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .service-card,
+  .testimonial-card,
+  .stat,
+  .gallery-item img,
+  .btn { transition: none !important; }
+  html { scroll-behavior: auto; }
 }
 
 /* ---------- Responsive ---------- */

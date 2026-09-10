@@ -1,1 +1,12 @@
 .claude/
+
+# Ruflo/claude-flow local tooling — not part of this static site
+.env
+.env.local
+.env.*.local
+.agents/
+.claude-flow/
+.mcp.json
+.swarm/
+ruvector.db
+8)
